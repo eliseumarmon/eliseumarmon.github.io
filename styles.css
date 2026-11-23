@@ -103,6 +103,7 @@ h1, h2, h3 { line-height: 1.1; letter-spacing: -.052em; }
 @keyframes cursor-blink { 50% { opacity: 0; } }
 .terminal-fallback { display: inline-block; margin-top: 12px; font-size: .71rem; color: #b8cafa; text-underline-offset: 3px; }
 .terminal-fallback:hover { color: #fff; }
+.terminal-no-client { margin-top: 7px; color: #b1bed7; font-size: .7rem; line-height: 1.55; }
 .visual-corner { position: absolute; right: 12px; bottom: 10px; font: 600 .65rem var(--mono); color: #6479ad; }
 .expertise-strip { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 15px 28px; padding: 22px 0 25px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); color: #586179; font-size: .76rem; font-weight: 740; letter-spacing: .02em; }
 .expertise-strip span::before { content: "+"; color: var(--orange); font-weight: 900; margin-right: 11px; }

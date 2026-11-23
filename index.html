@@ -43,34 +43,36 @@
           </div>
           <div class="hero-footnote"><span class="hero-footnote-line" aria-hidden="true"></span> Técnico superior en DAW <span aria-hidden="true">·</span> Estudiante de DAM</div>
         </div>
-        <div class="hero-visual" aria-label="Diagrama ilustrativo de una aplicación, desde la interfaz hasta la infraestructura">
+        <div class="hero-visual" id="mensaje" aria-label="Formulario de contacto con apariencia de terminal">
           <div class="visual-toolbar">
             <div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
-            <span>eliseu / workspace</span>
-            <span class="visual-version">v.01</span>
+            <span>eliseu@portfolio: ~/contacto</span>
+            <span class="visual-version">mail — 01</span>
           </div>
           <div class="visual-content">
-            <p class="visual-kicker">DE LA IDEA AL SISTEMA</p>
-            <div class="flow-diagram">
-              <div class="flow-node">
-                <span class="node-num">01 / FRONTEND</span>
-                <strong>Interfaz</strong>
-                <span>Vue · HTML · CSS</span>
+            <p class="visual-kicker"><span class="terminal-prompt">❯</span> compose --nuevo</p>
+            <p class="terminal-intro">¿Te apetece hablar de un proyecto? Prepara un correo desde aquí.</p>
+            <form id="contact-form" class="terminal-form">
+              <div class="terminal-field">
+                <label for="mail-to"><span class="terminal-field-symbol" aria-hidden="true">&gt;</span> para:</label>
+                <input id="mail-to" name="to" type="email" value="eliseumarmon@gmail.com" readonly aria-describedby="mail-to-help">
               </div>
-              <div class="flow-connector" aria-hidden="true"><span>↓</span></div>
-              <div class="flow-node">
-                <span class="node-num">02 / BACKEND</span>
-                <strong>Lógica y datos</strong>
-                <span>PHP · Laravel · SQL</span>
+              <p id="mail-to-help" class="terminal-field-help">Dirección de destino fija</p>
+              <div class="terminal-field">
+                <label for="mail-subject"><span class="terminal-field-symbol" aria-hidden="true">&gt;</span> asunto:</label>
+                <input id="mail-subject" name="subject" type="text" placeholder="¿Hablamos de tu proyecto?" autocomplete="off" maxlength="120" required>
               </div>
-              <div class="flow-connector" aria-hidden="true"><span>↓</span></div>
-              <div class="flow-node">
-                <span class="node-num">03 / SISTEMAS</span>
-                <strong>Entorno y despliegue</strong>
-                <span>Linux · Docker · Redes</span>
+              <div class="terminal-field terminal-field-body">
+                <label for="mail-body"><span class="terminal-field-symbol" aria-hidden="true">&gt;</span> mensaje:</label>
+                <textarea id="mail-body" name="body" placeholder="Hola Eliseu, he visto tu portfolio y..." rows="5" maxlength="1800" required></textarea>
               </div>
-            </div>
-            <div class="visual-console"><span aria-hidden="true">›</span> Aprender también lo que pasa entre capas<span class="console-cursor" aria-hidden="true"></span></div>
+              <button class="terminal-submit" type="submit"><span aria-hidden="true">❯</span> Enviar desde mi correo <span aria-hidden="true">↗</span></button>
+              <p class="terminal-help">Se abrirá tu aplicación de correo con los campos preparados. Podrás revisarlo antes de enviarlo.</p>
+              <p class="terminal-status" id="terminal-status" role="status" aria-live="polite"></p>
+            </form>
+            <div class="visual-console"><span aria-hidden="true">›</span> Sin backend, sin cuentas, sin guardar mensajes.<span class="console-cursor" aria-hidden="true"></span></div>
+            <a class="terminal-fallback" href="mailto:eliseumarmon@gmail.com">Abrir un correo directamente ↗</a>
+            <p class="terminal-no-client">¿Sin aplicación de correo? Copia la dirección de «para» y escribe desde tu webmail.</p>
           </div>
           <div class="visual-corner" aria-hidden="true">E/M</div>
         </div>
@@ -213,7 +215,7 @@
             <p>Si quieres hablar de desarrollo, compartir una idea o comentar alguno de mis proyectos, puedes escribirme.</p>
           </div>
           <div class="contact-actions">
-            <a class="button button-primary" href="mailto:eliseumarmon@gmail.com">Escríbeme <span aria-hidden="true">↗</span></a>
+            <a class="button button-primary" href="#mensaje">Abrir terminal de contacto <span aria-hidden="true">↗</span></a>
             <a class="text-link" href="https://github.com/eliseumarmon" target="_blank" rel="noopener noreferrer">Encontrarme en GitHub <span aria-hidden="true">↗</span></a>
           </div>
         </div>
@@ -226,6 +228,34 @@
       <a href="#inicio">Volver arriba ↑</a>
     </footer>
   </div>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const contactForm = document.getElementById("contact-form");
+    const mailSubject = document.getElementById("mail-subject");
+    const mailBody = document.getElementById("mail-body");
+    const terminalStatus = document.getElementById("terminal-status");
+
+    // El correo se prepara en el cliente: ningún mensaje pasa por esta web.
+    contactForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const to = document.getElementById("mail-to").value;
+      const subject = mailSubject.value.trim();
+      const body = mailBody.value.trim();
+
+      if (!subject || !body) {
+        terminalStatus.textContent = "Escribe un asunto y un mensaje antes de continuar.";
+        (!subject ? mailSubject : mailBody).focus();
+        return;
+      }
+
+      const mailto = "mailto:" + to +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+
+      terminalStatus.textContent = "Correo preparado. Revísalo y confirma el envío en tu aplicación de correo.";
+      window.location.href = mailto;
+    });
+  </script>
 </body>
 </html>

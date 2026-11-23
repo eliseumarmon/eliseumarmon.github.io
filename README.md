@@ -14,6 +14,20 @@ La portada presenta el perfil profesional, una selección de proyectos públicos
 - Catch My CV: escena lúdica oscura con verdes forestales y ámbar.
 - La pequeña tarjeta de Catch My CV conserva el verde del juego para que se perciba que es otro producto.
 
+
+## Terminal de contacto
+
+La terminal de la portada es un formulario HTML accesible, sin servidor:
+
+- \`para\`: dirección fija \`eliseumarmon@gmail.com\` (solo lectura).
+- \`asunto\`: texto editable, máximo 120 caracteres.
+- \`mensaje\`: texto editable, máximo 1800 caracteres.
+- Enviar construye en JavaScript un enlace \`mailto:\` con \`encodeURIComponent\` para el asunto y el cuerpo y abre el cliente de correo predeterminado del visitante. El usuario debe revisar y confirmar el envío en esa aplicación.
+- Si el navegador no tiene cliente configurado, se muestra un enlace \`mailto:\` básico como alternativa.
+- No hay envío directo, almacenamiento del mensaje, backend ni garantía de que el correo termine enviándose.
+
+Para probarlo: completar los campos, pulsar el botón y verificar que el cliente de correo muestra destinatario, asunto y cuerpo (incluyendo tildes y saltos de línea). Probar también el caso de campos vacíos y un equipo sin cliente de correo configurado.
+
 ## Contenido y mantenimiento
 
 - `index.html`: secciones, textos y enlaces.
